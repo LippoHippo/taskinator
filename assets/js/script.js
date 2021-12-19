@@ -53,6 +53,7 @@ console.log(taskDataObj.status);
 
   taskDataObj.id = taskIdCounter;
   tasks.push(taskDataObj);
+  saveTasks();
 
   // create task actions (buttons and select) for task
   var taskActionsEl = createTaskActions(taskIdCounter);
@@ -117,6 +118,8 @@ var completeEditTask = function(taskName, taskType, taskId) {
       }
     };
 
+    saveTasks();
+
   alert("Task Updated!");
 
   // remove data attribute from form
@@ -164,6 +167,7 @@ var taskStatusChangeHandler = function(event) {
           tasks[i].status === statusValue;
       }
   }
+  saveTasks();
 };
 
 var editTask = function(taskId) {
@@ -202,8 +206,11 @@ var deleteTask = function(taskId) {
       }
   }
   tasks = updatedTaskArr;
+  saveTasks();
 };
-
+var saveTasks = function(){
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 // Create a new task
 formEl.addEventListener("submit", taskFormHandler);
 
